@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html>
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        {{hello.split('').reverse().join('')}}
+        <div :id="hello+'123'">div</div>
+        
+        <div :class="{ active }">active div</div>
+
+        <template v-if="show">
+            <div>some content</div>
+        </template>
+
+        <ul v-for="(item, index) of arr">
+            <li>{{index}}: {{item}}</li>
+        </ul>
+
+        <br>
+
+        <ul v-for="(item, key, index) in obj">
+            <li>{{index}} - {{key}}: {{item}}</li>
+        </ul>
+
+        <div v-for="item in keys" :key="item.id">{{ item.text }} </div> 
+
+        <div v-if="active" key="one">is active</div>
+        <div v-else key="two">is not active</div>
+
+        {{ hello }}
+        <button @click="reverse('hello')">reverse</button>
+
+        <br><br>
+        
+        <input type="text" v-model.lazy="msg">
+        {{msg}}
+
+        <br>
+        <div>{{foo}}</div>
+        <div>{{reversedFoo}}</div>
+    </div>
+    
+    <script src="http://unpkg.com/vue"></script>
+    <script>
+        const vm = new Vue({
+        // el: "#app",
+        data: {
+            hello: "hello vue",
+            msg: '',
+            active: true,
+            show: true,
+            foo: "foo",
+            arr: ['one', 'two', 'three'],
+            obj: {
+                a: 'one',
+                b: 'two',
+                c: 'three'
+            },
+            keys: [
+                { text: 'a', id: 0 },
+                { text: 'b', id: 1 },
+                { text: 'c', id: 2 },
+                { text: 'd', id: 3 },
+            ]
+        },
+        methods: {
+            reverse (arg) {
+                console.log(arg)
+                console.log(this.hello)
+                this.hello = this.hello.split('').reverse().join('')
+                console.log(this.hello)
+            },
+            updateMsg () {
+                this.msg = event.target.value
+            }
+        },
+        computed: {
+            reversedFoo () {
+                return this.foo.split('').reverse().join('');
+            }
+        }
+    }).$mount('#app')
+    </script>
+</body>
+</html>

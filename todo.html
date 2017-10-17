@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html>
+<head>
+    <style>
+        .todo {
+            cursor: pointer;
+        }
+        .completed {
+            color: green;
+            text-decoration: line-through
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="todo">
+        <input type="text" v-model="toAdd" @keyup.enter="add(toAdd)">
+        <button @click="add(toAdd)">Add todo</button>
+
+        <div v-for="todo in todos">
+            <input :id="'todo'+todo.id" type="checkbox" v-model="todo.completed">
+            <input type="text" v-if="todo.edit" v-model="todo.desc" @keyup.enter="todo.edit = !todo.edit">
+            <label v-if="!todo.edit" :for="'todo'+todo.id" class="todo" :class="{completed: todo.completed}">{{todo.desc}}</label>
+            <a v-if="!todo.edit" @click="todo.edit = !todo.edit">edit</a>
+        </div>
+
+        <button @click="deleteCompleted">Clear all completed todo's</button>
+    </div>
+    
+    <script src="http://unpkg.com/vue"></script>
+    <script>
+        const vm = new Vue({
+        el: "#todo",
+        data: {
+            toAdd: '',
+            todos: [
+            { id: 0, desc:"read vue doc", completed: true, edit: false }, 
+            { id: 1, desc:"follow vue hackcamp", completed: false, edit: false }, 
+            { id: 2, desc:"kick it!", completed: false, edit: false }
+            ]
+        },
+        methods: {
+            add () {
+                if(this.toAdd == '') {
+                    return
+                }
+                todo = {
+                    id: this.todos.slice(-1)[0].id+1,
+                    desc: this.toAdd, 
+                    completed: false
+                }
+                this.todos.push(todo)
+                this.toAdd = ''
+            },
+            deleteCompleted () {
+                for(todo of this.todos) {
+                    if(todo.completed) {
+                        this.todos.splice(this.todos.indexOf(todo), 1)
+                    }
+                }
+            }
+        }
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html>
+<head>
+    <style>
+        .todo {
+            cursor: pointer;
+        }
+        .completed {
+            color: green;
+            text-decoration: line-through
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="el">
+        <todo 
+            v-for="todo in todos" 
+            :todo="todo" 
+            @toggle="toggleTodo(todo)">
+        </todo>
+    </div>
+    
+    <script src="http://unpkg.com/vue"></script>
+    <script>
+        Vue.component('todo', {
+            template: `
+            <div
+                class="todo"
+                @click="editMode = !editMode"
+                :class="{completed: todo.completed}">
+                {{todo.desc}} - editMode: {{editMode}}
+            </div>`,
+            props: {
+                todo: Object,
+                required: true
+            },
+            data() { // data is a function to get an updated version of the data object returned
+                return { 
+                    editMode: false
+                }
+            }
+        })
+        
+        vm = new Vue({
+            el: "#el",
+            data: {
+                todos: [
+                    { id: 0, desc:"read vue doc", completed: true, edit: false }, 
+                    { id: 1, desc:"follow vue hackcamp", completed: false, edit: false }, 
+                    { id: 2, desc:"kick it!", completed: false, edit: false }
+                ]
+            },
+            methods: {
+                toggleTodo (todo) {
+                    todo.completed = !todo.completed
+                }
+            }
+        })
+    </script>
+</body>
+</html>
