@@ -42,3 +42,19 @@ import App from './App.vue'
 Always specify `.vue` for vue files!
 
 
+# Vuex
+
+```javascript
+New Vuex.store({
+    state: {},
+    actions: {},
+    mutations: {},
+    getters: {}
+})
+```
+
+Store is a mini client-side database.
+- actions: make changes to the database
+- mutations: writing in the database
+- getters: query from database (like computed on component level)
+
