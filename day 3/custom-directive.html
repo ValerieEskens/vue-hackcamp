@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html>
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        <p v-color="color">text</p>
+    </div>
+    
+    <script src="http://unpkg.com/vue"></script>
+    <script>
+
+        Vue.directive('color', {
+            // called only once, during v-DOM generation process 
+            // element may still be outside document, parent node might not be accessible yet
+            bind (el, binding, vnode) { 
+                // el = DOM element
+                // bind = object with info about current directive
+                // vnode is node in the virtual DOM tree, 
+                // typically used: vnode.context = component instance that this directive is currently in
+                console.log(binding.value)
+                el.style.color = binding.value
+            },
+            // node will be in the document already
+            inserted () {
+
+            },
+            // called every time the binding changes
+            // called inside virtual dom diff process, as soon as the element is touched
+            // chjild nodes may not be in DOM yet
+            update (el, binding, vnode) {
+                console.log(binding)
+                if(binding.value != binding.oldValue) {
+                    el.style.color = binding.value
+                }
+            },
+            // called after update
+            // we're in the virtual dom diff process
+            // child nodes are in DOM now
+            componentUpdated () {
+
+            },
+            // called when element is destroyed from the DOM
+            unbind () {
+
+            }
+
+        })
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                color: 'red'
+            },
+            methods: {
+            },
+        })
+    </script>
+</body>
+</html>

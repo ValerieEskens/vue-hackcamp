@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html>
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        <render-fn :tags="['div', 'span', 'p']"></render-fn>
+    </div>
+    
+    <!-- Expected output:
+    <div id="app">
+        <div>
+            <div>0</div>
+            <span>1</span>
+            <p>2</p>
+        </div>
+    </div>
+    -->
+    
+    <script src="http://unpkg.com/vue"></script>
+    <script>
+        Vue.component('render-fn', {
+            props: {
+                tags: Array
+            },
+            render (createElement) {
+                let nodes = []
+                this.tags.forEach((tag, i) => {
+                    let node = createElement(tag, {}, [
+                        i
+                    ])
+                    nodes.push(node)
+                })
+                return createElement('div', {}, nodes)
+                
+                // OR
+
+                nodes = this.tags.map((tag, i) => {
+                    return createElement(tag, i)
+                })
+                return createElement('div', {}, nodes)
+
+                // OR
+
+                return createElement('div', {}, () => this.tags.map((tag, i) => createElement(tag, i)))
+            }
+        })
+
+        const vm = new Vue({
+            el: "#app",
+        })
+    </script>
+</body>
+</html>

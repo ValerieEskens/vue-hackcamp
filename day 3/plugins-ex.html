@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html>
+<head>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="number" v-model="value">
+
+        <ul v-if="warnings">
+            <li v-for="warning in warnings"> {{ warning }} </li>
+        </ul>
+    </div>
+    
+    <script src="http://unpkg.com/vue"></script>
+    <script>
+        const Plugin = {
+            install (Vue) {
+                Vue.mixin({
+                    data () {
+                        return {
+                            warnings: []
+                        }
+                    },
+                    created: function () {
+                        // this.$options
+                        const validations = this.$options.validate
+                        if (validations) {
+                            // object.keys retrieves all keys in an object as an array
+                            Object.keys(validations).forEach(key => {
+                                const { assert, message } = validations[key]
+                                this.$watch(key, value => {
+                                    // this is called whenever value changes
+                                    const result = assert(value)
+                                    if (!result) {
+                                        console.error(this.warnings)
+                                        this.warnings.push(message(key, value))
+                                    }
+                                })
+                            })
+                        }
+                    }
+                })
+            }
+        }
+        
+        Vue.use(Plugin)
+        
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                value: 1
+            },
+            validate: {
+                value: {
+                    assert: newValue => newValue > 1,
+                    message: (key, value) => `${key} must be greater than 1, but got ${value}`
+                }  
+            },
+        })
+
+        vm.value = 0
+        
+    </script>
+</body>
+</html>
