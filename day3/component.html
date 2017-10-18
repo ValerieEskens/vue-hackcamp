@@ -1,0 +1,11 @@
+<template functional>
+    <div>{{ props.foo }}</div>
+</template>
+
+<!-- same as -->
+
+<script>
+    render (h, context) {
+        return h('div', context.props.foo)
+    }
+</script>
