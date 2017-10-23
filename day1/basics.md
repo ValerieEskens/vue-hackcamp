@@ -44,7 +44,9 @@ anything that starts with v- can contain javascript
 ```
 
 `v-` -> vue
+
 `bind` -> name of the directive
+
 `:id` -> argument
 
 short:
@@ -111,7 +113,7 @@ same as
 
 ## Computed
 
-Computed properties only recalculate when use variables are updated.
+Computed properties only recalculate when used variables are updated.
 
 ```javascript
 new Vue({
@@ -131,10 +133,10 @@ new Vue({
 
 `reversedFoo` will only recalculate when `foo` (=dependency) changes, not when `bar` changes.
 
-If will not recalculate when Date.now() changes since it's not a vue dependency.
+It will not recalculate when Date.now() changes since it's not a vue dependency.
 Solution: add `Date.now()` as a vue data variable.
 
-Computed = derived state. Does not come from a databaseor so, but from other data variables.
+Computed = derived state. Does not come from a database or so, but from other data variables.
 
 ## Watch
 

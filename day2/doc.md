@@ -30,7 +30,8 @@ new Vue({
 })
 ```
 
-`template` and `components` need template compiler
+`template` and `components` need template compiler.
+
 `render` function renders the template itself, so doesn't need the template compiler anymore.
 
 ## Import
@@ -45,7 +46,7 @@ Always specify `.vue` for vue files!
 # Vuex
 
 ```javascript
-New Vuex.store({
+new Vuex.store({
     state: {},
     actions: {},
     mutations: {},

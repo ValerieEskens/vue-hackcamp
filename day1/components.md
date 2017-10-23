@@ -33,11 +33,11 @@ Key solves this problem because it changes the order of the elements instead of 
 
 ## Destroy
 
-Make sure to destroy things that are not vue-related, that you have ut in a vue component, like a timer.
+Make sure to destroy things that are not vue-related, that you have put in a vue component, like a timer.
 
 ## Props
 
-Props are passed by reference, but should not me changed inside a component. It does not sync back to the parent.
+Props are passed by reference, but should not be changed inside a component. It does not sync back to the parent.
 How to sync with parent? $emit --> syntax sugar: `:foo.sync`
 
 ```html

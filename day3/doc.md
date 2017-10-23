@@ -23,14 +23,14 @@ Virtual DOM = json
 { tag: 'div', data: { attrs: {}, ... }, children: [] }
 ```
 
-`transition` of `template` elements are in virtual DOM, but not in actual DOM.
+`<transition>` or `<template>` elements are in virtual DOM, but not in actual DOM.
 
 ## Performance
 
 Virtual DOM comparing and stuff is a lot CPU.
 Although building actual DOM and throwing it away is even more work.
 
-create actual DOM: js jumps to c++ to create DOM.
+Create actual DOM: js jumps to c++ to create DOM.
 <-> virtual dom stays in js -> THAT's why it's cheaper.
 
 Changes in real DOM: element or so has to be alocated.
@@ -80,7 +80,7 @@ let h = <input/>
 ## Functional components
 
 Functional components don't have instances.
-Is a component is used a lot, there's all new instances for the usages of them, that's expensive.
+If a component is used a lot, there's all new instances for the usages of them, that's expensive.
 This can all be avoided with functional components.
 
 Why not make all components functional?
@@ -125,5 +125,5 @@ const addTwo = addFactory(2)
 
 ```
 
-For components this would mean you would wrap an existing component in a custom component which gives the existing component some default functionality. For example wrap the `transition` component in a custom `my-transition` component and pass some default enter and leave functions you would want to use everywhere so you don't have to repeat it everywhere where you use the `transition`component.
+For components this would mean you would wrap an existing component in a custom component which gives the existing component some default functionality. For example wrap the `<transition>` component in a custom `<my-transition>` component and pass some default enter and leave functions you would want to use everywhere so you don't have to repeat it everywhere where you use the `<transition>`component.
 
